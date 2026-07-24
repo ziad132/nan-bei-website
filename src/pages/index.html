@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" x-data="siteData()" :lang="lang" :dir="lang === 'ar' ? 'rtl' : 'ltr'">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title x-text="t.meta.title">نان بي ترافل | رعاية متكاملة لضيوف الرحمن</title>
+    <meta name="description" :content="t.meta.description">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: { 950: '#041510', 900: '#0A2F24', 800: '#114435' },
+                        gold: { light: '#E5C88B', DEFAULT: '#C5A059', dark: '#A37F3C' },
+                        ivory: '#F9F6F0',
+                    },
+                    fontFamily: {
+                        sans: ['Readex Pro', 'sans-serif'],
+                        display: ['Alexandria', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(4, 21, 16, 0.85), rgba(4, 21, 16, 0.95)), url('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')",
+                        'islamic-pattern': "url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M30 0L60 30L30 60L0 30L30 0ZM30 2L4 30L30 58L56 30L30 2Z\" fill=\"%23C5A059\" fill-opacity=\"0.04\" fill-rule=\"evenodd\"/%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; }
+        ::selection { background-color: #C5A059; color: #041510; }
+        .text-gradient-gold {
+            background: linear-gradient(135deg, #E5C88B 0%, #C5A059 50%, #A37F3C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .luxury-shadow { box-shadow: 0 10px 40px -10px rgba(197, 160, 89, 0.15); }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+
+<body class="bg-emerald-950 bg-islamic-pattern text-ivory font-sans antialiased selection:bg-gold selection:text-emerald-950">
+
+    <!-- Header / Navigation -->
+    <header x-data="{ mobileMenuOpen: false, scrolled: false }" 
+            @scroll.window="scrolled = (window.pageYOffset > 20)"
+            :class="scrolled ? 'bg-emerald-950/95 backdrop-blur-md shadow-lg shadow-black/50 py-2.5' : 'bg-transparent py-3.5'"
+            class="fixed w-full top-0 z-50 transition-all duration-300 border-b border-gold/10">
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative h-14 md:h-16 flex items-center">
+            <div class="flex justify-between items-center w-full">
+                
+                <!-- 1. LEFT: Logo -->
+                <a href="#" class="flex items-center gap-2.5 group z-20">
+                    <img src="./public/NanBeiTravel Icon Only No BG.png" alt="Nan Bei Icon" 
+                         class="h-12 md:h-14 w-auto object-contain mix-blend-screen drop-shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3" 
+                         onerror="this.src='https://placehold.co/100x100/0A2F24/C5A059?text=NB'">
+                    <div class="flex flex-col justify-center transition-transform duration-500 group-hover:translate-x-1">
+                        <span class="font-display font-bold text-lg md:text-xl text-gradient-gold tracking-wide leading-none mb-1 transition-opacity" x-text="lang === 'ar' ? 'نان بي' : 'Nan Bei'">نان بي</span>
+                        <span class="font-display font-medium text-[10px] text-gold/80 tracking-widest leading-none" x-text="lang === 'ar' ? 'ترافل' : 'TRAVEL'">ترافل</span>
+                    </div>
+                </a>
+
+                <!-- 2. CENTER: Navigation (Desktop) -->
+                <nav class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-5 lg:gap-7 z-10 w-auto whitespace-nowrap">
+                    <a href="#hajj" class="text-sm font-semibold text-gold hover:text-ivory transition" x-text="t.nav.hajj">حج 1446هـ</a>
+                    <a href="#services" class="text-sm font-medium text-ivory/80 hover:text-gold transition" x-text="t.nav.services">خدماتنا</a>
+                    <a href="#about" class="text-sm font-medium text-ivory/80 hover:text-gold transition" x-text="t.nav.about">من نحن</a>
+                    <a href="#team" class="text-sm font-medium text-ivory/80 hover:text-gold transition" x-text="t.nav.team">فريق العمل</a>
+                    <a href="#contact" class="text-sm font-medium text-ivory/80 hover:text-gold transition" x-text="t.nav.contact">تواصل معنا</a>
+                </nav>
+
+                <!-- 3. RIGHT: Actions -->
+                <div class="hidden md:flex items-center gap-3 z-20">
+                    <button @click="toggleLang()" class="flex items-center gap-1.5 text-xs font-display font-medium text-ivory/80 hover:text-gold transition px-3 py-1.5 rounded-full border border-gold/20 hover:border-gold/50 bg-emerald-900/50">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                        <span x-text="lang === 'ar' ? 'English' : 'عربي'"></span>
+                    </button>
+
+                    <a :href="getWhatsAppLink(phones.nasrLink, 'أرغب في الاستفسار عن رحلات الحج والعمرة الفاخرة من موقع نان بي ترافل', 'I would like to inquire about luxury Hajj and Umrah packages from Nan Bei Travel website')" 
+                       target="_blank"
+                       class="bg-gold hover:bg-gold-light text-emerald-950 font-display font-bold text-xs px-5 py-2 rounded-full transition shadow-md shadow-gold/20 flex items-center gap-1.5">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        <span x-text="t.nav.cta">التواصل الفوري</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-3 z-20">
+                    <button @click="toggleLang()" class="text-ivory/80 hover:text-gold font-display text-xs px-2 py-1 border border-gold/20 rounded">
+                        <span x-text="lang === 'ar' ? 'EN' : 'AR'"></span>
+                    </button>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gold focus:outline-none p-1.5">
+                        <svg x-show="!mobileMenuOpen" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg x-show="mobileMenuOpen" x-cloak class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="mobileMenuOpen" x-transition x-cloak class="md:hidden absolute top-full left-0 w-full bg-emerald-950 border-b border-gold/20 shadow-2xl">
+            <div class="px-4 pt-2 pb-5 space-y-1.5 flex flex-col text-center">
+                <a href="#hajj" @click="mobileMenuOpen = false" class="block py-2.5 text-gold font-bold border-b border-gold/10 text-sm" x-text="t.nav.hajj">حج 1446هـ</a>
+                <a href="#services" @click="mobileMenuOpen = false" class="block py-2.5 text-ivory/90 hover:text-gold font-medium border-b border-gold/10 text-sm" x-text="t.nav.services">خدماتنا</a>
+                <a href="#about" @click="mobileMenuOpen = false" class="block py-2.5 text-ivory/90 hover:text-gold font-medium border-b border-gold/10 text-sm" x-text="t.nav.about">من نحن</a>
+                <a href="#team" @click="mobileMenuOpen = false" class="block py-2.5 text-ivory/90 hover:text-gold font-medium border-b border-gold/10 text-sm" x-text="t.nav.team">فريق العمل</a>
+                <a href="#contact" @click="mobileMenuOpen = false" class="block py-2.5 text-ivory/90 hover:text-gold font-medium border-b border-gold/10 text-sm" x-text="t.nav.contact">تواصل معنا</a>
+                <div class="pt-3 flex justify-center">
+                    <a :href="getWhatsAppLink(phones.nasrLink, 'أرغب في التواصل والتقديم لرحلات نان بي ترافل', 'I want to contact Nan Bei Travel')" target="_blank" class="bg-gold text-emerald-950 font-display font-bold text-xs px-6 py-2.5 rounded-full flex items-center gap-2">
+                        <span x-text="t.nav.cta">التواصل عبر واتساب</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (Fixed Overlap & Compact Fit) -->
+    <section class="relative min-h-screen flex flex-col justify-center pt-28 sm:pt-32 pb-10 bg-hero-pattern bg-cover bg-center bg-no-repeat overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/70 to-emerald-950/80"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center w-full my-auto">
+            <span class="inline-block py-1 px-4 rounded-full border border-gold/30 bg-emerald-900/60 backdrop-blur-md text-gold text-[11px] sm:text-xs font-medium tracking-wide mb-4 sm:mb-6 shadow-lg" x-text="t.hero.license">
+                ترخيص غرفة شركات ووكالات السفر والسياحة المصرية (فئة أ - رقم 2418)
+            </span>
+            
+            <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-ivory leading-tight mb-3">
+                <span x-text="t.hero.sloganMain">الصحبة قبل الرحلة</span> <br>
+                <span class="text-gradient-gold font-display font-medium text-xl sm:text-3xl md:text-4xl mt-3 sm:mt-4 block leading-relaxed py-1 overflow-visible" x-text="t.hero.sloganSub">رعاية متكاملة لضيوف الرحمن في كل خطوة</span>
+            </h1>
+            
+            <p class="text-sm sm:text-base md:text-lg text-ivory/80 max-w-xl mx-auto font-light leading-relaxed mb-8 mt-4" x-text="t.hero.description">
+                نعتني بكل تفاصيل رحلتك الإيمانية لتتفرغ للعبادة والطمأنينة. مرافقة واهتمام شخصي من لحظة تفكيرك بالسفر حتى عودتك بسلام.
+            </p>
+            
+            <div id="hajj" class="bg-emerald-900/80 border border-gold/40 p-5 sm:p-6 rounded-2xl max-w-lg mx-auto mb-6 backdrop-blur-md luxury-shadow transform hover:-translate-y-1 transition duration-300">
+                <h3 class="font-display text-lg sm:text-xl text-gold font-bold mb-2" x-text="t.hajj.title">تقديم حج 1446هـ الفاخر</h3>
+                <p class="text-ivory/90 text-xs sm:text-sm mb-4 leading-relaxed" x-html="t.hajj.desc">الأمر سهل وبسيط جداً.. كل ما تحتاجه للتقديم هو <strong class="text-gold text-base">صورة البطاقة الشخصية فقط!</strong></p>
+                <a :href="getWhatsAppLink(phones.nasrLink, 'السلام عليكم، أرغب في حجز وتقديم رحلة الحج (بصورة البطاقة فقط) مع نان بي ترافل.', 'Hello, I want to apply for Hajj package (ID card only) with Nan Bei Travel.')" 
+                   target="_blank"
+                   class="w-full bg-gold hover:bg-gold-light text-emerald-950 font-display font-bold py-3 px-5 rounded-xl transition shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base min-h-[46px]">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    <span x-text="t.hajj.btn">قدم الآن لحج 1446هـ عبر الواتساب</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section (Compact 1-Screen Viewport Fit) -->
+    <section id="services" class="py-12 md:py-16 bg-emerald-950/60 relative border-b border-gold/10 min-h-[calc(100vh-4rem)] flex flex-col justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="text-center max-w-2xl mx-auto mb-8 md:mb-10">
+                <h2 class="text-gold text-xs font-display tracking-widest mb-1.5 uppercase" x-text="t.services.tag">خدماتنا الفندقية والسياحية</h2>
+                <h3 class="font-display text-2xl sm:text-3xl text-ivory font-bold mb-3 leading-relaxed overflow-visible" x-text="t.services.title">كل ما تحتاجه لرحلة إيمانية خالية من المتاعب</h3>
+                <p class="text-ivory/70 font-light text-sm md:text-base leading-relaxed" x-text="t.services.desc">نقدم باقة متكاملة من الخدمات لتنظيم رحلات الحج والعمرة، لنوفر لك أقصى درجات الراحة والتفرغ التام للعبادة والمناسك.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mb-8">
+                <!-- Service 1 -->
+                <div class="bg-emerald-900/40 border border-gold/20 p-5 rounded-xl hover:bg-emerald-900/60 transition duration-300 group">
+                    <div class="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <h4 class="text-base md:text-lg font-bold text-ivory mb-1.5 font-display" x-text="t.services.hotelsTitle">حجوزات الفنادق الفاخرة</h4>
+                    <p class="text-ivory/60 text-xs md:text-sm leading-relaxed" x-text="t.services.hotelsDesc">نضمن لك إقامة مريحة في أرقى وأشهر فنادق مكة والمدينة (مثل: فيرمونت، سويس أوتيل، وبولمان زمزم) مع إطلالات مباشرة.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="bg-emerald-900/40 border border-gold/20 p-5 rounded-xl hover:bg-emerald-900/60 transition duration-300 group">
+                    <div class="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h4 class="text-base md:text-lg font-bold text-ivory mb-1.5 font-display" x-text="t.services.visasTitle">استخراج التأشيرات</h4>
+                    <p class="text-ivory/60 text-xs md:text-sm leading-relaxed" x-text="t.services.visasDesc">نقوم بإنهاء كافة الإجراءات الورقية واستخراج تأشيرات الحج والعمرة والزيارة نيابة عنك بأسرع وقت وأقل مجهود.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="bg-emerald-900/40 border border-gold/20 p-5 rounded-xl hover:bg-emerald-900/60 transition duration-300 group">
+                    <div class="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    </div>
+                    <h4 class="text-base md:text-lg font-bold text-ivory mb-1.5 font-display" x-text="t.services.flightsTitle">تذاكر الطيران</h4>
+                    <p class="text-ivory/60 text-xs md:text-sm leading-relaxed" x-text="t.services.flightsDesc">حجوزات طيران مؤكدة على أفضل الخطوط الجوية بمواعيد مرنة تناسب جدول رحلتك لضمان سفر مريح ومباشر.</p>
+                </div>
+                <!-- Service 4 -->
+                <div class="bg-emerald-900/40 border border-gold/20 p-5 rounded-xl hover:bg-emerald-900/60 transition duration-300 group">
+                    <div class="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h4 class="text-base md:text-lg font-bold text-ivory mb-1.5 font-display" x-text="t.services.trainTitle">قطار الحرمين السريع</h4>
+                    <p class="text-ivory/60 text-xs md:text-sm leading-relaxed" x-text="t.services.trainDesc">تنسيق وحجز تذاكر قطار الحرمين السريع لتنقل آمن، سريع، ومريح جداً بين مكة المكرمة والمدينة المنورة.</p>
+                </div>
+                <!-- Service 5 -->
+                <div class="bg-emerald-900/40 border border-gold/20 p-5 rounded-xl hover:bg-emerald-900/60 transition duration-300 group">
+                    <div class="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                    </div>
+                    <h4 class="text-base md:text-lg font-bold text-ivory mb-1.5 font-display" x-text="t.services.limoTitle">خدمات الليموزين والنقل</h4>
+                    <p class="text-ivory/60 text-xs md:text-sm leading-relaxed" x-text="t.services.limoDesc">توفير سيارات خاصة وخدمات ليموزين VIP للاستقبال والتوديع في المطارات والتنقلات الداخلية بخصوصية تامة.</p>
+                </div>
+                <!-- Service 6 -->
+                <div class="bg-emerald-900/40 border border-gold/20 p-5 rounded-xl hover:bg-emerald-900/60 transition duration-300 group">
+                    <div class="w-10 h-10 rounded-lg bg-gold/10 text-gold flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    </div>
+                    <h4 class="text-base md:text-lg font-bold text-ivory mb-1.5 font-display" x-text="t.services.umrahTitle">برامج العمرة المخصصة</h4>
+                    <p class="text-ivory/60 text-xs md:text-sm leading-relaxed" x-text="t.services.umrahDesc">تصميم برامج عمرة متكاملة تناسب الأفراد والعائلات، لتلبي كافة متطلباتكم وتمنحكم تجربة روحانية لا تُنسى.</p>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <a :href="getWhatsAppLink(phones.nasrLink, 'السلام عليكم، أرغب في الاستفسار عن خدماتكم وتفاصيل حجز رحلات العمرة.', 'Hello, I want to inquire about your services and Umrah bookings.')" 
+                   target="_blank"
+                   class="bg-gold hover:bg-gold-light text-emerald-950 font-display font-bold px-6 py-3 rounded-full transition inline-flex items-center justify-center min-h-[44px] gap-2 shadow-lg text-xs md:text-sm">
+                    <span x-text="t.hero.umrahBtn">استفسر عن رحلات العمرة والخدمات</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section (Compact Viewport Fit) -->
+    <section id="about" class="py-12 md:py-16 bg-emerald-950/80 relative border-b border-gold/10 min-h-[calc(100vh-4rem)] flex flex-col justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-2 gap-10 md:gap-12 items-center">
+                <div>
+                    <h2 class="text-gold text-xs font-display tracking-widest mb-2 uppercase" x-text="t.about.tag">من نحن</h2>
+                    <h3 class="font-display text-2xl sm:text-3xl md:text-4xl text-ivory font-bold mb-4 leading-relaxed overflow-visible">
+                        <span x-text="t.about.titleP1">الصحبة قبل الرحلة..</span> <br> 
+                        <span class="text-gradient-gold" x-text="t.about.titleP2">رعاية متكاملة لضيوف الرحمن</span>
+                    </h3>
+                    <p class="text-ivory/70 leading-relaxed text-sm sm:text-base mb-4 font-light" x-text="t.about.desc1">
+                        في "نان بي ترافل"، نؤمن بأن السفر لزيارة بيت الله الحرام ليس مجرد رحلة عادية، بل هي رحلة العمر التي تستحق أعلى درجات الاهتمام والراحة. شعارنا "الصحبة قبل الرحلة" يعبر عن التزامنا بأن نكون معك قلباً وقالباً.
+                    </p>
+                    <p class="text-ivory/70 leading-relaxed text-sm sm:text-base mb-6 font-light" x-text="t.about.desc2">
+                        باعتبارنا شركة مسجلة ومعتمدة في غرفة الشركات السياحية (فئة أ - رقم 2418)، نقدم خدمات الحج والعمرة والترتيبات الخاصة بأعلى معايير الرعاية والاحترافية والفخامة.
+                    </p>
+                    
+                    <a :href="getWhatsAppLink(phones.nasrLink, 'مرحباً، أود معرفة المزيد عن خدمات نان بي ترافل.', 'Hello, I want to know more about Nan Bei Travel services.')" 
+                       target="_blank"
+                       class="bg-transparent border border-gold hover:bg-gold hover:text-emerald-950 text-gold font-display font-bold px-6 py-3 rounded-full transition inline-flex items-center justify-center min-h-[44px] gap-2 shadow-lg text-xs sm:text-sm">
+                        <span x-text="t.about.btn">تواصل مع خدمة العملاء</span>
+                    </a>
+                </div>
+
+                <div class="relative">
+                    <div class="grid grid-cols-2 gap-3 md:gap-4">
+                        <div class="relative group overflow-hidden rounded-xl border border-gold/20 luxury-shadow mt-6 h-48 sm:h-56 md:h-64">
+                            <img src="./public/madinah.jpg" 
+                                 alt="المسجد النبوي - الحرم المدني" 
+                                 class="block w-full h-full object-cover object-top group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent flex items-end p-3 sm:p-4">
+                                <span class="text-ivory font-display font-bold text-xs sm:text-sm" x-text="t.about.madinah">الحرم المدني الشريف</span>                            
+                            </div>
+                        </div>
+                        <div class="relative group overflow-hidden rounded-xl border border-gold/20 luxury-shadow -mt-4 sm:-mt-6 h-56 sm:h-64 md:h-72">
+                            <img src="./public/makkah.webp" 
+                                 alt="الكعبة المشرفة - الحرم المكي" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent flex items-end p-3 sm:p-4">
+                                <span class="text-ivory font-display font-bold text-xs sm:text-sm text-gradient-gold" x-text="t.about.makkah">الحرم المكي الشريف</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-emerald-950/95 backdrop-blur border border-gold p-3 sm:p-4 rounded-xl text-center shadow-2xl z-10 w-32 sm:w-36">
+                        <span class="block text-xl sm:text-2xl font-display font-bold text-gold">2418</span>
+                        <span class="block text-[10px] sm:text-xs text-ivory mt-1 font-medium" x-text="t.about.badge">ترخيص فئة أ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section (Compact Viewport Fit) -->
+    <section id="team" class="py-12 md:py-16 bg-emerald-900/30 border-b border-gold/10 min-h-[calc(100vh-4rem)] flex flex-col justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="text-center max-w-2xl mx-auto mb-8 md:mb-10">
+                <h2 class="text-gold text-xs font-display tracking-widest mb-1.5 uppercase" x-text="t.team.tag">فريق الإشراف والرعاية</h2>
+                <h3 class="font-display text-2xl sm:text-3xl text-ivory font-bold mb-3 leading-relaxed overflow-visible" x-text="t.team.title">رفقاء رحلتك لخدمتكم ورعايتكم</h3>
+                <p class="text-ivory/70 font-light text-sm md:text-base" x-text="t.team.desc">نخبة من المتخصصين وأهل الثقة لإدارة وتنسيق رحلاتكم بكل احترافية ويسر، لضمان أعلى مستويات الفخامة والراحة.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="bg-emerald-950/80 backdrop-blur p-6 sm:p-8 rounded-2xl border border-gold/20 luxury-shadow flex flex-col justify-between group hover:border-gold/50 transition duration-300">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4 border border-gold/30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
+                        <h4 class="font-display text-lg sm:text-xl text-ivory font-bold mb-2" x-text="t.team.egyptTitle">فريق الإشراف في مصر</h4>
+                        <p class="text-gold font-bold text-xs sm:text-sm mb-3" x-text="t.team.egyptNames">الشيخ نصر • الشيخ عبدالله • الشيخ إبراهيم</p>
+                        <p class="text-ivory/70 text-xs sm:text-sm leading-relaxed mb-6 font-light" x-text="t.team.egyptDesc">
+                            مسؤولون عن تقديم كافة التسهيلات والتنسيقات للعملاء داخل جمهورية مصر العربية، وإنهاء الإجراءات واستخراج التأشيرات بدقة وسرعة تامة.
+                        </p>
+                    </div>
+                    <a :href="getWhatsAppLink(phones.nasrLink, 'السلام عليكم، أرغب في التواصل مع إدارة التنسيق بمصر بخصوص حجز رحلة.', 'Hello, contacting Egypt team regarding a booking.')" 
+                       target="_blank"
+                       class="w-full bg-emerald-900 border border-gold/40 hover:bg-gold hover:text-emerald-950 text-gold py-3 px-5 rounded-xl text-center text-xs sm:text-sm font-bold transition flex items-center justify-center min-h-[44px] gap-2">
+                        <span x-text="t.team.egyptBtn">تواصل مع الفريق (مصر)</span>
+                        <span dir="ltr" class="font-mono text-[11px] opacity-80 uppercase" x-text="phones.nasrDisplay"></span>
+                    </a>
+                </div>
+
+                <div class="bg-emerald-950/80 backdrop-blur p-6 sm:p-8 rounded-2xl border border-gold/20 luxury-shadow flex flex-col justify-between group hover:border-gold/50 transition duration-300">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-gold/10 text-gold flex items-center justify-center mb-4 border border-gold/30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h4 class="font-display text-lg sm:text-xl text-ivory font-bold mb-2" x-text="t.team.saudiTitle">فريق الرعاية بالسعودية</h4>
+                        <p class="text-gold font-bold text-xs sm:text-sm mb-3" x-text="t.team.saudiNames">الشيخ أسامة عبدالله</p>
+                        <p class="text-ivory/70 text-xs sm:text-sm leading-relaxed mb-6 font-light" x-text="t.team.saudiDesc">
+                            مسؤول عن الإشراف المباشر على كافة العمليات، الاستقبال، التسكين الفندقي، وخدمات ضيوف الرحمن في الأراضي المقدسة لضمان راحتكم المطلقة.
+                        </p>
+                    </div>
+                    <a :href="getWhatsAppLink(phones.osamaLink, 'السلام عليكم، أرغب في التواصل مع المشرف في السعودية بخصوص الترتيبات.', 'Hello, contacting Saudi supervisor regarding arrangements.')" 
+                       target="_blank"
+                       class="w-full bg-emerald-900 border border-gold/40 hover:bg-gold hover:text-emerald-950 text-gold py-3 px-5 rounded-xl text-center text-xs sm:text-sm font-bold transition flex items-center justify-center min-h-[44px] gap-2">
+                        <span x-text="t.team.saudiBtn">تواصل مع الفريق (السعودية)</span>
+                        <span dir="ltr" class="font-mono text-[11px] opacity-80 uppercase" x-text="phones.osamaDisplay"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section (Compact Viewport Fit) -->
+    <section id="contact" class="py-12 md:py-16 bg-emerald-900/20 min-h-[calc(100vh-4rem)] flex flex-col justify-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="bg-emerald-950 rounded-2xl border border-gold/20 overflow-hidden luxury-shadow">
+                <div class="grid lg:grid-cols-2">
+                    <div class="p-6 sm:p-8 lg:p-12 flex flex-col justify-center">
+                        <h2 class="text-gold text-xs font-display tracking-widest mb-2 uppercase" x-text="t.contact.tag">تواصل معنا</h2>
+                        <h3 class="font-display text-2xl md:text-3xl text-ivory font-bold mb-6 leading-relaxed" x-text="t.contact.title">نحن بانتظار تواصلكم للترتيب لرحلتكم</h3>
+                        
+                        <div class="space-y-5 mb-8">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-gold/10 text-gold flex items-center justify-center shrink-0 border border-gold/30">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-ivory font-bold text-sm sm:text-base mb-1" x-text="t.contact.hq">المقر الرئيسي</h4>
+                                    <p class="text-ivory/60 text-xs sm:text-sm leading-relaxed" x-html="t.contact.address">12 شارع 233، دجلة، المعادي،<br>محافظة القاهرة، مصر</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-gold/10 text-gold flex items-center justify-center shrink-0 border border-gold/30">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-ivory font-bold text-sm sm:text-base mb-1" x-text="t.contact.direct">تواصل مباشر (واتساب)</h4>
+                                    <p class="text-ivory/80 text-sm sm:text-base font-mono font-bold tracking-widest uppercase" dir="ltr" x-text="phones.nasrDisplay"></p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-gold/10 text-gold flex items-center justify-center shrink-0 border border-gold/30">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-ivory font-bold text-sm sm:text-base mb-1" x-text="t.contact.licenseTitle">الترخيص الرسمي</h4>
+                                    <p class="text-ivory/60 text-xs sm:text-sm" x-text="t.contact.licenseDesc">غرفة الشركات ووكالات السفر والسياحة المصرية - فئة أ (رقم 2418)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <a :href="getWhatsAppLink(phones.nasrLink, 'السلام عليكم، أرغب في التواصل معكم لحجز رحلة مع نان بي ترافل.', 'Hello, I want to contact you to book a trip with Nan Bei Travel.')" 
+                               target="_blank"
+                               class="bg-gold hover:bg-gold-light text-emerald-950 font-display font-bold px-6 py-3.5 rounded-xl transition inline-flex items-center justify-center w-full sm:w-auto gap-2 shadow-lg min-h-[46px] text-sm sm:text-base">
+                                <span x-text="t.contact.startChat">ابدأ المحادثة عبر الواتساب فوراً</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="h-64 sm:h-72 lg:h-auto relative min-h-[250px]">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3456.91890250785!2d31.2720973!3d29.9530438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1458380029b9f7a5%3A0x6730ef8996b7dc97!2s12%20Rd%20233%2C%20Degla%20Al%20Maadi%2C%20Maadi%2C%20Cairo%20Governorate%204213032%2C%20Egypt!5e0!3m2!1sen!2sae!4v1710000000000!5m2!1sen!2sae" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="filter grayscale sepia opacity-80 mix-blend-overlay absolute inset-0"></iframe>
+                        <div class="absolute inset-0 bg-emerald-900/40 pointer-events-none"></div>
+                        
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none p-4 text-center">
+                            <a href="https://maps.app.goo.gl/YycfWPSB3b5NrVmX6" target="_blank" class="pointer-events-auto bg-emerald-950/95 backdrop-blur border border-gold/40 text-gold px-5 py-3 rounded-full text-xs sm:text-sm font-bold flex items-center justify-center min-h-[44px] gap-2 hover:bg-gold hover:text-emerald-950 transition shadow-2xl">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <span x-text="t.contact.openMap">افتح المقر على خرائط جوجل</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-emerald-950 border-t border-gold/20 pt-12 sm:pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center text-center">
+                
+                <div class="flex flex-col items-center justify-center mb-6">
+                    <img src="public/NanBeiTravel Icon Only No BG.png" alt="Nan Bei Icon" 
+                         class="h-20 sm:h-24 md:h-28 w-auto object-contain mix-blend-screen drop-shadow-2xl mb-3 transition duration-500 hover:scale-105" 
+                         onerror="this.src='https://placehold.co/150x150/0A2F24/C5A059?text=NB'">
+                    <span class="font-display font-bold text-3xl sm:text-4xl text-gradient-gold tracking-wide leading-none mb-2" x-text="lang === 'ar' ? 'نان بي' : 'Nan Bei'">نان بي</span>
+                    <span class="font-display text-xs sm:text-sm text-gold/80 tracking-widest leading-none" x-text="lang === 'ar' ? 'ترافل' : 'TRAVEL'">ترافل</span>
+                </div>
+                
+                <p class="text-gold text-sm sm:text-base tracking-widest mb-8" x-text="t.hero.sloganMain">الصحبة قبل الرحلة</p>
+
+                <div class="flex flex-wrap justify-center gap-6 mb-8 text-xs sm:text-sm font-medium text-ivory/60">
+                    <a href="#hajj" class="hover:text-gold transition min-h-[40px] flex items-center" x-text="t.nav.hajj">حج 1446هـ</a>
+                    <a href="#services" class="hover:text-gold transition min-h-[40px] flex items-center" x-text="t.nav.services">خدماتنا</a>
+                    <a href="#about" class="hover:text-gold transition min-h-[40px] flex items-center" x-text="t.nav.about">من نحن</a>
+                    <a href="#team" class="hover:text-gold transition min-h-[40px] flex items-center" x-text="t.nav.team">فريق العمل</a>
+                    <a href="#contact" class="hover:text-gold transition min-h-[40px] flex items-center" x-text="t.nav.contact">تواصل معنا</a>
+                </div>
+
+                <div class="w-full max-w-xl h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent mb-8"></div>
+
+                <div class="flex gap-4 mb-6">
+                    <a href="https://www.facebook.com/nanbeitravels" target="_blank" class="text-ivory/50 hover:text-gold transition p-2 min-h-[44px] min-w-[44px] flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/nanbeitravels" target="_blank" class="text-ivory/50 hover:text-gold transition p-2 min-h-[44px] min-w-[44px] flex items-center justify-center">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                </div>
+
+                <p class="text-xs text-ivory/40 leading-relaxed" x-html="t.footer.rights">
+                    جميع الحقوق محفوظة لشركة نان بي ترافل © 2026 <br>
+                    ترخيص غرفة الشركات السياحية المصرية - فئة أ (رقم 2418)
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="fixed bottom-5" :class="lang === 'ar' ? 'right-5' : 'left-5'" style="z-index: 60;">
+        <a :href="getWhatsAppLink(phones.nasrLink, 'مرحباً، أود الاستفسار عن رحلات وحجز الحج والعمرة مع نان بي ترافل.', 'Hello, I want to inquire about Hajj and Umrah bookings with Nan Bei Travel.')" 
+           target="_blank"
+           class="w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_10px_30px_rgba(37,211,102,0.4)] hover:scale-110 transition duration-300 border-2 border-emerald-950"
+           title="تواصل عبر الواتساب">
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        </a>
+    </div>
+
+    <script>
+        function siteData() {
+            return {
+                lang: 'ar', 
+                
+                phones: {
+                    nasrDisplay: '+20 111 641 1147',
+                    nasrLink: '201116411147',       
+                    osamaDisplay: '+966 54 883 0260',
+                    osamaLink: '966548830260',
+                },
+
+                getWhatsAppLink(phoneLink, messageAr, messageEn) {
+                    const msg = this.lang === 'ar' ? messageAr : messageEn;
+                    return `https://wa.me/${phoneLink}?text=${encodeURIComponent(msg)}`;
+                },
+
+                toggleLang() {
+                    this.lang = this.lang === 'ar' ? 'en' : 'ar';
+                },
+
+                get t() {
+                    return this.i18n[this.lang];
+                },
+
+                i18n: {
+                    ar: {
+                        meta: { title: 'نان بي ترافل | رعاية متكاملة لضيوف الرحمن', description: 'نان بي ترافل - خدمات الحج والعمرة الفاخرة.' },
+                        nav: { hajj: 'حج 1446هـ', services: 'خدماتنا', about: 'من نحن', team: 'فريق العمل', contact: 'تواصل معنا', cta: 'التواصل الفوري' },
+                        hero: {
+                            license: 'ترخيص غرفة شركات ووكالات السفر والسياحة المصرية (فئة أ - رقم 2418)',
+                            sloganMain: 'الصحبة قبل الرحلة',
+                            sloganSub: 'رعاية متكاملة لضيوف الرحمن في كل خطوة',
+                            description: 'نعتني بكل تفاصيل رحلتك الإيمانية لتتفرغ للعبادة والطمأنينة. مرافقة واهتمام شخصي من لحظة تفكيرك بالسفر حتى عودتك بسلام.',
+                            umrahBtn: 'استفسر عن رحلات العمرة والخدمات'
+                        },
+                        hajj: {
+                            title: 'تقديم حج 1446هـ الفاخر',
+                            desc: 'الأمر سهل وبسيط جداً.. كل ما تحتاجه للتقديم هو <strong class="text-gold text-base">صورة البطاقة الشخصية فقط!</strong>',
+                            btn: 'قدم الآن لحج 1446هـ عبر الواتساب'
+                        },
+                        services: {
+                            tag: 'خدماتنا الفندقية والسياحية',
+                            title: 'كل ما تحتاجه لرحلة إيمانية خالية من المتاعب',
+                            desc: 'نقدم باقة متكاملة من الخدمات لتنظيم رحلات الحج والعمرة، لنوفر لك أقصى درجات الراحة والتفرغ التام للعبادة والمناسك.',
+                            hotelsTitle: 'حجوزات الفنادق الفاخرة',
+                            hotelsDesc: 'نضمن لك إقامة مريحة في أرقى وأشهر فنادق مكة والمدينة (مثل: فيرمونت، سويس أوتيل، وبولمان زمزم) مع إطلالات مباشرة.',
+                            visasTitle: 'استخراج التأشيرات',
+                            visasDesc: 'نقوم بإنهاء كافة الإجراءات الورقية واستخراج تأشيرات الحج والعمرة والزيارة نيابة عنك بأسرع وقت وأقل مجهود.',
+                            flightsTitle: 'تذاكر الطيران',
+                            flightsDesc: 'حجوزات طيران مؤكدة على أفضل الخطوط الجوية بمواعيد مرنة تناسب جدول رحلتك لضمان سفر مريح ومباشر.',
+                            trainTitle: 'قطار الحرمين السريع',
+                            trainDesc: 'تنسيق وحجز تذاكر قطار الحرمين السريع لتنقل آمن، سريع، ومريح جداً بين مكة المكرمة والمدينة المنورة.',
+                            limoTitle: 'خدمات الليموزين والنقل',
+                            limoDesc: 'توفير سيارات خاصة وخدمات ليموزين VIP للاستقبال والتوديع في المطارات والتنقلات الداخلية بخصوصية تامة.',
+                            umrahTitle: 'برامج العمرة المخصصة',
+                            umrahDesc: 'تصميم برامج عمرة متكاملة تناسب الأفراد والعائلات، لتلبي كافة متطلباتكم وتمنحكم تجربة روحانية لا تُنسى.'
+                        },
+                        about: {
+                            tag: 'من نحن', titleP1: 'الصحبة قبل الرحلة..', titleP2: 'رعاية متكاملة لضيوف الرحمن',
+                            desc1: 'في "نان بي ترافل"، نؤمن بأن السفر لزيارة بيت الله الحرام ليس مجرد رحلة عادية، بل هي رحلة العمر التي تستحق أعلى درجات الاهتمام والراحة. شعارنا "الصحبة قبل الرحلة" يعبر عن التزامنا بأن نكون معك قلباً وقالباً.',
+                            desc2: 'باعتبارنا شركة مسجلة ومعتمدة في غرفة الشركات السياحية (فئة أ - رقم 2418)، نقدم خدمات الحج والعمرة والترتيبات الخاصة بأعلى معايير الرعاية والاحترافية والفخامة.',
+                            btn: 'تواصل مع خدمة العملاء', madinah: 'الحرم المدني الشريف', makkah: 'الحرم المكي الشريف', badge: 'ترخيص فئة أ'
+                        },
+                        team: {
+                            tag: 'فريق الإشراف والرعاية', title: 'رفقاء رحلتك لخدمتكم ورعايتكم', desc: 'نخبة من المتخصصين وأهل الثقة لإدارة وتنسيق رحلاتكم بكل احترافية ويسر، لضمان أعلى مستويات الفخامة والراحة.',
+                            egyptTitle: 'فريق الإشراف في مصر', egyptNames: 'الشيخ نصر • الشيخ عبدالله • الشيخ إبراهيم',
+                            egyptDesc: 'مسؤولون عن تقديم كافة التسهيلات والتنسيقات للعملاء داخل جمهورية مصر العربية، وإنهاء الإجراءات واستخراج التأشيرات بدقة وسرعة تامة.',
+                            egyptBtn: 'تواصل مع الفريق (مصر)',
+                            saudiTitle: 'فريق الرعاية بالسعودية', saudiNames: 'الشيخ أسامة عبدالله',
+                            saudiDesc: 'مسؤول عن الإشراف المباشر على كافة العمليات، الاستقبال، التسكين الفندقي، وخدمات ضيوف الرحمن في الأراضي المقدسة لضمان راحتكم المطلقة.',
+                            saudiBtn: 'تواصل مع الفريق (السعودية)'
+                        },
+                        contact: {
+                            tag: 'تواصل معنا', title: 'نحن بانتظار تواصلكم للترتيب لرحلتكم',
+                            hq: 'المقر الرئيسي', address: '12 شارع 233، دجلة، المعادي،<br>محافظة القاهرة، مصر',
+                            direct: 'تواصل مباشر (واتساب)', licenseTitle: 'الترخيص الرسمي', licenseDesc: 'غرفة الشركات ووكالات السفر والسياحة المصرية - فئة أ (رقم 2418)',
+                            startChat: 'ابدأ المحادثة عبر الواتساب فوراً', openMap: 'افتح المقر على خرائط جوجل'
+                        },
+                        footer: { rights: 'جميع الحقوق محفوظة لشركة نان بي ترافل © 2026 <br> ترخيص غرفة الشركات السياحية المصرية - فئة أ (رقم 2418)' }
+                    },
+                    en: {
+                        meta: { title: 'Nan Bei Travel | Complete Care for Sacred Journeys', description: 'Nan Bei Travel - Premium Hajj and Umrah services.' },
+                        nav: { hajj: 'Hajj 2025', services: 'Services', about: 'About Us', team: 'Our Team', contact: 'Contact Us', cta: 'Chat Now' },
+                        hero: {
+                            license: 'Licensed by Egyptian Travel Agents Association (Class A - No. 2418)',
+                            sloganMain: 'Companionship Before the Journey',
+                            sloganSub: 'Complete care for the guests of Allah at every step',
+                            description: 'We take care of every detail of your spiritual journey so you can focus entirely on worship and peace. Personal care from the moment you decide to travel until your safe return.',
+                            umrahBtn: 'Inquire About Services & Umrah'
+                        },
+                        hajj: {
+                            title: 'Premium Hajj 1446 Registration',
+                            desc: 'It is very simple... All you need to apply is <strong class="text-gold text-base">Your National ID Card Only!</strong>',
+                            btn: 'Apply for Hajj Now via WhatsApp'
+                        },
+                        services: {
+                            tag: 'Our Hospitality & Travel Services',
+                            title: 'Everything you need for a hassle-free spiritual journey',
+                            desc: 'We offer a complete suite of services to organize your Hajj and Umrah trips, ensuring maximum comfort and absolute devotion.',
+                            hotelsTitle: 'Luxury Hotel Bookings',
+                            hotelsDesc: 'Guaranteed comfortable stays in the finest Makkah & Madinah hotels (e.g., Fairmont, Swissôtel) with direct views.',
+                            visasTitle: 'Visa Processing',
+                            visasDesc: 'We handle all paperwork and issue Hajj, Umrah, and Visit visas on your behalf quickly and effortlessly.',
+                            flightsTitle: 'Flight Tickets',
+                            flightsDesc: 'Confirmed flight bookings on top airlines with flexible schedules to ensure a direct and comfortable journey.',
+                            trainTitle: 'Haramain High-Speed Train',
+                            trainDesc: 'Coordination and booking of Haramain train tickets for safe, fast, and highly comfortable transit between Makkah and Madinah.',
+                            limoTitle: 'VIP Limousine Services',
+                            limoDesc: 'Providing private cars and VIP limousine services for airport transfers and internal transportation with complete privacy.',
+                            umrahTitle: 'Custom Umrah Packages',
+                            umrahDesc: 'Designing comprehensive Umrah packages tailored for individuals and families, ensuring an unforgettable spiritual experience.'
+                        },
+                        about: {
+                            tag: 'About Us', titleP1: 'Companionship First...', titleP2: 'Complete Care for the Guests of Allah',
+                            desc1: 'At Nan Bei Travel, we believe visiting the Holy Mosque is not just a trip, it is the journey of a lifetime that deserves the highest levels of care and comfort. Our motto reflects our commitment to being with you wholeheartedly.',
+                            desc2: 'As an accredited agency (Class A - 2418), we offer Hajj, Umrah, and VIP arrangements with the highest standards of professionalism and luxury.',
+                            btn: 'Contact Customer Service', madinah: 'The Prophet\'s Mosque', makkah: 'The Holy Kaaba', badge: 'Class A License'
+                        },
+                        team: {
+                            tag: 'Supervision & Care Team', title: 'Dedicated Companions at Your Service', desc: 'Elite professionals and trusted experts to manage and coordinate your journeys smoothly, ensuring the ultimate comfort.',
+                            egyptTitle: 'Egypt Supervision Team', egyptNames: 'Sheikh Nasr • Sheikh Abdullah • Sheikh Ibrahim',
+                            egyptDesc: 'Responsible for facilitating procedures and coordinating all travel logistics meticulously for clients in Egypt, including prompt visa processing.',
+                            egyptBtn: 'Contact Egypt Team',
+                            saudiTitle: 'Saudi Care Team', saudiNames: 'Sheikh Osama Abdullah',
+                            saudiDesc: 'Directly oversees all operations, reception, hotel accommodation, and services in the Holy Lands to ensure your absolute comfort.',
+                            saudiBtn: 'Contact Saudi Team'
+                        },
+                        contact: {
+                            tag: 'Contact Us', title: 'We look forward to arranging your journey',
+                            hq: 'Headquarters', address: '12 St 233, Degla, Maadi,<br>Cairo Governorate, Egypt',
+                            direct: 'Direct Contact (WhatsApp)', licenseTitle: 'Official License', licenseDesc: 'Egyptian Travel Agents Association - Class A (No. 2418)',
+                            startChat: 'Start WhatsApp Chat Now', openMap: 'Open Location on Google Maps'
+                        },
+                        footer: { rights: 'All rights reserved to Nan Bei Travel © 2026 <br> Egyptian Travel Agents Association - Class A (No. 2418)' }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
