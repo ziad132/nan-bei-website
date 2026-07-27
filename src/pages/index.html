@@ -9,8 +9,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=Readex+Pro:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -37,8 +36,9 @@
                         ivory: '#F9F6F0',
                     },
                     fontFamily: {
-                        sans: ['Readex Pro', 'sans-serif'],
-                        display: ['Alexandria', 'sans-serif'],
+                        sans: ['Thmanyah Sans', 'sans-serif'],
+                        display: ['Thmanyah Sans', 'sans-serif'],
+                        logo: ['Alexandria', 'sans-serif'],
                     },
                     backgroundImage: {
                         'hero-pattern': "linear-gradient(to bottom, rgba(4, 21, 16, 0.85), rgba(4, 21, 16, 0.95)), url('https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')",
@@ -50,12 +50,29 @@
     </script>
 
     <style>
+        @font-face {
+            font-family: 'Thmanyah Sans';
+            src: url('/fonts/thmanyahsans-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Thmanyah Sans';
+            src: url('/fonts/thmanyahsans-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
         html {
             scroll-behavior: smooth;
         }
 
         body {
             overflow-x: hidden;
+            font-family: 'Thmanyah Sans', sans-serif;
         }
 
         ::selection {
@@ -103,9 +120,10 @@
                     <div
                         class="flex flex-col justify-center transition-transform duration-500 group-hover:translate-x-1">
                         <span
-                            class="font-display font-bold text-lg md:text-xl text-gradient-gold tracking-wide leading-none mb-1 transition-opacity"
+                            class="font-logo font-bold text-lg md:text-xl text-gradient-gold leading-tight mb-0.5 transition-opacity"
                             x-text="lang === 'ar' ? 'نان بي' : 'Nan Bei'">نان بي</span>
-                        <span class="font-display font-medium text-[10px] text-gold/80 tracking-widest leading-none"
+                        <span
+                            class="font-logo font-medium text-[10px] text-gold/80 tracking-widest leading-none"
                             x-text="lang === 'ar' ? 'ترافل' : 'TRAVEL'">ترافل</span>
                     </div>
                 </a>
@@ -462,8 +480,8 @@
                         </div>
                         <h4 class="font-display text-lg sm:text-xl text-ivory font-bold mb-2"
                             x-text="t.team.egyptTitle">فريق الإشراف في مصر</h4>
-                        <p class="text-gold font-bold text-xs sm:text-sm mb-3" x-text="t.team.egyptNames">الشيخ نصر •
-                            الشيخ عبدالله • الشيخ إبراهيم</p>
+                        <p class="text-gold font-bold text-xs sm:text-sm mb-3" x-text="t.team.egyptNames">القاهرة •
+                            المعادي</p>
                         <p class="text-ivory/70 text-xs sm:text-sm leading-relaxed mb-6 font-light"
                             x-text="t.team.egyptDesc">
                             مسؤولون عن تقديم كافة التسهيلات والتنسيقات للعملاء داخل جمهورية مصر العربية، وإنهاء
@@ -492,8 +510,8 @@
                         </div>
                         <h4 class="font-display text-lg sm:text-xl text-ivory font-bold mb-2"
                             x-text="t.team.saudiTitle">فريق الرعاية بالسعودية</h4>
-                        <p class="text-gold font-bold text-xs sm:text-sm mb-3" x-text="t.team.saudiNames">الشيخ أسامة
-                            عبدالله</p>
+                        <p class="text-gold font-bold text-xs sm:text-sm mb-3" x-text="t.team.saudiNames">مكة المكرمة •
+                            المدينة المنورة</p>
                         <p class="text-ivory/70 text-xs sm:text-sm leading-relaxed mb-6 font-light"
                             x-text="t.team.saudiDesc">
                             مسؤول عن الإشراف المباشر على كافة العمليات، الاستقبال، التسكين الفندقي، وخدمات ضيوف الرحمن
@@ -626,9 +644,9 @@
                         class="h-20 sm:h-24 md:h-28 w-auto object-contain mix-blend-screen drop-shadow-2xl mb-3 transition duration-500 hover:scale-105"
                         onerror="this.src='https://placehold.co/150x150/0A2F24/C5A059?text=NB'">
                     <span
-                        class="font-display font-bold text-3xl sm:text-4xl text-gradient-gold tracking-wide leading-none mb-2"
+                        class="font-logo font-bold text-3xl sm:text-4xl text-gradient-gold leading-tight mb-1"
                         x-text="lang === 'ar' ? 'نان بي' : 'Nan Bei'">نان بي</span>
-                    <span class="font-display text-xs sm:text-sm text-gold/80 tracking-widest leading-none"
+                    <span class="font-logo font-medium text-xs sm:text-sm text-gold/80 tracking-widest leading-none"
                         x-text="lang === 'ar' ? 'ترافل' : 'TRAVEL'">ترافل</span>
                 </div>
 
@@ -695,8 +713,8 @@
                 lang: 'ar',
 
                 phones: {
-                    nasrDisplay: '+20 111 641 1147',
-                    nasrLink: '201116411147',
+                    nasrDisplay: '+20 155 191 9128',
+                    nasrLink: '201551919128',
                     osamaDisplay: '+966 54 883 0260',
                     osamaLink: '966548830260',
                 },
@@ -755,10 +773,10 @@
                         },
                         team: {
                             tag: 'فريق الإشراف والرعاية', title: 'رفقاء رحلتك لخدمتكم ورعايتكم', desc: 'نخبة من المتخصصين وأهل الثقة لإدارة وتنسيق رحلاتكم بكل احترافية ويسر، لضمان أعلى مستويات الفخامة والراحة.',
-                            egyptTitle: 'فريق الإشراف في مصر', egyptNames: 'الشيخ نصر • الشيخ عبدالله • الشيخ إبراهيم',
+                            egyptTitle: 'فريق الإشراف في مصر', egyptNames: 'المعادي • القاهرة',
                             egyptDesc: 'مسؤولون عن تقديم كافة التسهيلات والتنسيقات للعملاء داخل جمهورية مصر العربية، وإنهاء الإجراءات واستخراج التأشيرات بدقة وسرعة تامة.',
                             egyptBtn: 'تواصل مع الفريق (مصر)',
-                            saudiTitle: 'فريق الرعاية بالسعودية', saudiNames: 'الشيخ أسامة عبدالله',
+                            saudiTitle: 'فريق الرعاية بالسعودية', saudiNames: 'مكة المكرمة • المدينة المنورة',
                             saudiDesc: 'مسؤول عن الإشراف المباشر على كافة العمليات، الاستقبال، التسكين الفندقي، وخدمات ضيوف الرحمن في الأراضي المقدسة لضمان راحتكم المطلقة.',
                             saudiBtn: 'تواصل مع الفريق (السعودية)'
                         },
