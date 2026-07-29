@@ -78,6 +78,12 @@
             font-feature-settings: "salt" 1, "ss01" 1, "swsh" 1;
         }
 
+        /* تعطيل الحروف المرسلة للفقرات والنصوص الطويلة لتسهيل القراءة */
+        p, .no-mursala {
+            -webkit-font-feature-settings: normal !important;
+            font-feature-settings: normal !important;
+        }
+
         /* تفعيل الحروف المرسلة (Stylistic Alternates) كلاس إضافي */
         .font-mursala,
         .mursala {
