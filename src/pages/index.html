@@ -4,8 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title x-text="t.meta.title">نان بي ترافل | رعاية متكاملة لضيوف الرحمن</title>
+    <title x-text="t.meta.title">نان بي ترافل | الصحبة قبل الرحلة</title>
     <meta name="description" :content="t.meta.description">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/NanBeiTravel Icon No BG 1-1.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/NanBeiTravel Icon No BG 1-1.png">
+    <link rel="apple-touch-icon" href="/images/NanBeiTravel Icon No BG 1-1.png">
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content="NanBei Travel" />
+    <meta property="og:title" content="نان بي ترافل | الصحبة قبل الرحلة" />
+    <meta property="og:image" content="/images/NanBeiTravel Icon No BG 1-1.png" />
+    <meta property="og:url" content="https://nanbei.travel/" />
+    <meta property="og:type" content="website" />
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "NanBei Travel",
+      "alternateName": ["نان بي ترافل"],
+      "url": "https://nanbei.travel/"
+    }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -79,7 +102,8 @@
         }
 
         /* تعطيل الحروف المرسلة للفقرات والنصوص الطويلة لتسهيل القراءة */
-        p, .no-mursala {
+        p,
+        .no-mursala {
             -webkit-font-feature-settings: normal !important;
             font-feature-settings: normal !important;
         }
@@ -755,7 +779,7 @@
 
                 i18n: {
                     ar: {
-                        meta: { title: 'نان بي ترافل | رعاية متكاملة لضيوف الرحمن', description: 'نان بي ترافل - خدمات الحج والعمرة الفاخرة.' },
+                        meta: { title: 'نان بي ترافل | الصحبة قبل الرحلة', description: 'نان بي ترافل - خدمات الحج والعمرة الفاخرة.' },
                         nav: { hajj: 'حج 1446هـ', services: 'خدماتنا', about: 'من نحن', team: 'فريق العمل', contact: 'تواصل معنا', cta: 'التواصل الفوري' },
                         hero: {
                             license: 'ترخيص غرفة شركات ووكالات السفر والسياحة المصرية (فئة أ - رقم 2418)',
