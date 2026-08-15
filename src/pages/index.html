@@ -23,10 +23,46 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "NanBei Travel",
-      "alternateName": ["نان بي ترافل"],
-      "url": "https://nanbei.travel/"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://nanbei.travel/#organization",
+          "name": "نان بى ترافيل",
+          "alternateName": ["NanBei Travel", "نان بي ترافل", "Nan bei travel"],
+          "url": "https://nanbei.travel/",
+          "logo": "https://nanbei.travel/images/NanBeiTravel%20Icon%20No%20BG%201-1.png",
+          "email": "info@nanbeitravel.net",
+          "telephone": ["+20-122-273-1544", "+20-2-2516-7360", "+20-155-191-9128", "+966-54-883-0260"],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "12 شارع 233 دجلة المعادي",
+            "addressLocality": "المعادي",
+            "addressRegion": "القاهرة",
+            "addressCountry": "EG"
+          },
+          "identifier": {
+            "@type": "PropertyValue",
+            "name": "رقم الترخيص السياحي",
+            "value": "2418"
+          },
+          "sameAs": [
+            "https://www.etaa-egypt.org/sitepages/CompanyDetails.aspx?licc=2418",
+            "https://www.facebook.com/nanbeitravels",
+            "https://www.instagram.com/nanbeitravels"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://nanbei.travel/#website",
+          "url": "https://nanbei.travel/",
+          "name": "NanBei Travel",
+          "alternateName": ["نان بي ترافل", "نان بى ترافيل", "Nan bei travel"],
+          "publisher": {
+            "@id": "https://nanbei.travel/#organization"
+          },
+          "inLanguage": ["ar", "en"]
+        }
+      ]
     }
     </script>
 
@@ -254,6 +290,12 @@
                 <a href="#contact" @click="mobileMenuOpen = false"
                     class="block py-2.5 text-ivory/90 hover:text-gold font-medium border-b border-gold/10 text-sm"
                     x-text="t.nav.contact">تواصل معنا</a>
+                <a href="https://www.etaa-egypt.org/sitepages/CompanyDetails.aspx?licc=2418" target="_blank"
+                    class="block py-2.5 text-gold hover:text-gold-light font-medium border-b border-gold/10 text-sm flex items-center justify-center gap-2"
+                    @click="mobileMenuOpen = false">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <span x-text="lang === 'ar' ? 'ترخيص وزارة السياحة' : 'Ministry of Tourism License'">ترخيص وزارة السياحة</span>
+                </a>
                 <div class="pt-3 flex justify-center">
                     <a :href="getWhatsAppLink(phones.nasrLink, 'أرغب في التواصل والتقديم لرحلات نان بي ترافل', 'I want to contact Nan Bei Travel')"
                         target="_blank"
@@ -271,11 +313,13 @@
         <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/70 to-emerald-950/80"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto px-4 text-center w-full my-auto">
-            <span
-                class="inline-block py-1 px-4 rounded-full border border-gold/30 bg-emerald-900/60 backdrop-blur-md text-gold text-[11px] sm:text-xs font-medium tracking-wide mb-4 sm:mb-6 shadow-lg"
-                x-text="t.hero.license">
-                ترخيص غرفة شركات ووكالات السفر والسياحة المصرية (فئة أ - رقم 2418)
-            </span>
+            <a href="https://www.etaa-egypt.org/sitepages/CompanyDetails.aspx?licc=2418" target="_blank"
+                class="inline-flex items-center justify-center gap-1.5 py-1 px-4 rounded-full border border-gold/30 bg-emerald-900/60 backdrop-blur-md text-gold hover:bg-emerald-900/80 transition duration-300 text-[11px] sm:text-xs font-medium tracking-wide mb-4 sm:mb-6 shadow-lg">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                <span x-text="t.hero.license">
+                    ترخيص غرفة شركات ووكالات السفر والسياحة المصرية (فئة أ - رقم 2418)
+                </span>
+            </a>
 
             <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-ivory leading-tight mb-3">
                 <span x-text="t.hero.sloganMain">الصحبة قبل الرحلة</span> <br>
@@ -656,8 +700,8 @@
                                 <div>
                                     <h4 class="text-ivory font-bold text-sm sm:text-base mb-1"
                                         x-text="t.contact.licenseTitle">الترخيص الرسمي</h4>
-                                    <p class="text-ivory/60 text-xs sm:text-sm" x-text="t.contact.licenseDesc">غرفة
-                                        الشركات ووكالات السفر والسياحة المصرية - فئة أ (رقم 2418)</p>
+                                    <a href="https://www.etaa-egypt.org/sitepages/CompanyDetails.aspx?licc=2418" target="_blank" class="text-ivory/60 hover:text-gold transition text-xs sm:text-sm underline decoration-gold/50 underline-offset-4" x-text="t.contact.licenseDesc">غرفة
+                                        الشركات ووكالات السفر والسياحة المصرية - فئة أ (رقم 2418)</a>
                                 </div>
                             </div>
                         </div>
@@ -850,7 +894,7 @@
                             direct: 'تواصل مباشر (واتساب)', licenseTitle: 'الترخيص الرسمي', licenseDesc: 'غرفة الشركات ووكالات السفر والسياحة المصرية - فئة أ (رقم 2418)',
                             startChat: 'ابدأ المحادثة عبر الواتساب فوراً', openMap: 'افتح المقر على خرائط جوجل'
                         },
-                        footer: { rights: 'جميع الحقوق محفوظة لشركة نان بي ترافل © 2026 <br> ترخيص غرفة الشركات السياحية المصرية - فئة أ (رقم 2418)' }
+                        footer: { rights: 'جميع الحقوق محفوظة لشركة نان بي ترافل © 2026 <br> <a href="https://www.etaa-egypt.org/sitepages/CompanyDetails.aspx?licc=2418" target="_blank" class="hover:text-gold transition underline decoration-gold/50 underline-offset-4">ترخيص غرفة الشركات السياحية المصرية - فئة أ (رقم 2418)</a>' }
                     },
                     en: {
                         meta: { title: 'Nan Bei Travel | Complete Care for Sacred Journeys', description: 'Nan Bei Travel - Premium Hajj and Umrah services.' },
@@ -905,7 +949,7 @@
                             direct: 'Direct Contact (WhatsApp)', licenseTitle: 'Official License', licenseDesc: 'Egyptian Travel Agents Association - Class A (No. 2418)',
                             startChat: 'Start WhatsApp Chat Now', openMap: 'Open Location on Google Maps'
                         },
-                        footer: { rights: 'All rights reserved to Nan Bei Travel © 2026 <br> Egyptian Travel Agents Association - Class A (No. 2418)' }
+                        footer: { rights: 'All rights reserved to Nan Bei Travel © 2026 <br> <a href="https://www.etaa-egypt.org/sitepages/CompanyDetails.aspx?licc=2418" target="_blank" class="hover:text-gold transition underline decoration-gold/50 underline-offset-4">Egyptian Travel Agents Association - Class A (No. 2418)</a>' }
                     }
                 }
             }
